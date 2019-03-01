@@ -41,7 +41,7 @@ const SWAPLIST_DEFAULTS = {
     '<ul data-swap-handle=".handle">' +
       '{{#dataset}}' +
         '{{#text}}' +
-          '<li' +
+          '<li data-id="{{id}}"' +
             '{{#value}} data-value="{{value}}"{{/value}}' +
             '{{#selected}} selected="selected"{{/selected}}' +
             '{{#disabled}} class="is-disabled"{{/disabled}}' +
@@ -140,6 +140,10 @@ SwapList.prototype = {
         // Remove any previous listview instance
         if (list) {
           list.destroy();
+        }
+        // Force to have id attribute
+        if (s.template.indexOf('data-id="{{id}}"') === -1) {
+          s.template = s.template.replace('<li', '<li data-id="{{id}}"');
         }
         options.template = s.template;
         options.dataset = c.dataset || [];
@@ -656,6 +660,13 @@ SwapList.prototype = {
     const dropTargetAPI = droptarget.find('.listview').data('listview');
     const ownerDataList = this.getDataList(owner);
     const dtDataList = this.getDataList(droptarget);
+    const isMoved = (mOwner, mItem) => {
+      if (mOwner && mItem) {
+        const id = { owner: mOwner.getAttribute('data-id'), item: mItem.getAttribute('data-id') };
+        return ((typeof id.owner !== 'undefined') && (typeof id.item !== 'undefined') && (id.owner === id.item));
+      }
+      return false;
+    };
 
     for (let i = 0, l = this.selections.items.length; i < l; i++) {
       const item = this.selections.items[i];
@@ -663,7 +674,7 @@ SwapList.prototype = {
         if ($(droptargetNodes[dtIndex]).is(item)) {
           for (let ownerIndex = 0, l3 = ownerDataList.length; ownerIndex < l3; ownerIndex++) {
             const ownerItem = ownerDataList[ownerIndex];
-            if (ownerItem.node && ownerItem.node.is(item)) {
+            if (isMoved(ownerItem.node[0], item[0])) {
               dtDataList.push(ownerItem);
               ownerDataList.splice(ownerIndex, 1);
               this.arrayIndexMove(dtDataList, dtDataList.length - 1, dtIndex);
