@@ -126,7 +126,7 @@ SwapList.prototype = {
       const c = containers[i];
       const lv = $(`${c.class} .listview`, this.element);
       const list = lv.data('listview');
-      const options = { selectable: 'multiple', showCheckboxes: false };
+      const options = { dataset: c.dataset || [], selectable: 'multiple', showCheckboxes: false };
       const isSearchable = ((s.searchable === true || s.searchable === 'true') && ($(`${c.class} .searchfield`, this.element).length > 0));
 
       if (isSearchable) {
@@ -142,7 +142,6 @@ SwapList.prototype = {
           list.destroy();
         }
         options.template = s.template;
-        options.dataset = c.dataset || [];
 
         if (options.dataset.length === 0) {
           options.forceToRenderOnEmptyDs = true;
@@ -652,6 +651,8 @@ SwapList.prototype = {
    */
   syncDataset(owner, droptarget) {
     const droptargetNodes = $('.listview li', droptarget);
+    const ownerAPI = owner.find('.listview').data('listview');
+    const dropTargetAPI = droptarget.find('.listview').data('listview');
     const ownerDataList = this.getDataList(owner);
     const dtDataList = this.getDataList(droptarget);
 
@@ -671,6 +672,9 @@ SwapList.prototype = {
         }
       }
     }
+
+    ownerAPI.updated({ dataset: ownerDataList });
+    dropTargetAPI.updated({ dataset: dtDataList });
   },
 
   /**
