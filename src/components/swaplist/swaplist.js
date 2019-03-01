@@ -126,7 +126,7 @@ SwapList.prototype = {
       const c = containers[i];
       const lv = $(`${c.class} .listview`, this.element);
       const list = lv.data('listview');
-      const options = { selectable: 'multiple', showCheckboxes: false };
+      const options = { dataset: c.dataset || [], selectable: 'multiple', showCheckboxes: false };
       const isSearchable = ((s.searchable === true || s.searchable === 'true') && ($(`${c.class} .searchfield`, this.element).length > 0));
 
       if (isSearchable) {
@@ -652,6 +652,8 @@ SwapList.prototype = {
    */
   syncDataset(owner, droptarget) {
     const droptargetNodes = $('.listview li', droptarget);
+    const ownerAPI = owner.find('.listview').data('listview');
+    const dropTargetAPI = droptarget.find('.listview').data('listview');
     const ownerDataList = this.getDataList(owner);
     const dtDataList = this.getDataList(droptarget);
 
@@ -671,6 +673,10 @@ SwapList.prototype = {
         }
       }
     }
+
+    ownerAPI.updated({ dataset: ownerDataList });
+    dropTargetAPI.updated({ dataset: dtDataList });
+    this.makeDraggable();
   },
 
   /**
@@ -925,6 +931,10 @@ SwapList.prototype = {
         }
         e.preventDefault();
       }
+    });
+
+    self.containers.on('filtered.swaplist', '.listview', () => {
+      self.makeDraggable();
     });
 
     // Keydown event to handle selected container

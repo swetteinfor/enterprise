@@ -675,6 +675,17 @@ ListView.prototype = {
 
     this.filteredDataset = results;
     this.loadData(null, pagingInfo);
+
+    /**
+     * Fires after filtering the list.
+     * @event filtered
+     * @memberof ListView
+     * @property {object} event - The jquery event object
+     * @property {object} args.elem The list element
+     * @property {array} args.filteredResults The filter list items
+     * @property {term} args.term The search term used.
+     */
+    this.element.trigger('filtered', { elem: this.element, filteredResults: results, term: this.searchTerm });
   },
 
   /**
@@ -835,8 +846,7 @@ ListView.prototype = {
     this.list.sort = { field };
     this.list.sort[field] = { reverse };
     /**
-     * Fires after sorted.
-     *
+     * Fires after sorting the list.
      * @event sorted
      * @memberof ListView
      * @property {object} event - The jquery event object
@@ -1427,6 +1437,7 @@ ListView.prototype = {
         .off('cleared.searchable-listview')
         .on('cleared.searchable-listview', () => {
           self.resetSearch();
+          self.element.trigger('filtered', { elem: self.element, filteredResults: [], term: '' });
         });
     }
 
