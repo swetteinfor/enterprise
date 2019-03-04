@@ -329,9 +329,6 @@ SwapList.prototype = {
       }
 
       this.afterUpdate($('.listview', to).data('listview'));
-      $('li:last-child', to).focus()
-        // Fix: not sure why it added selected class and attribute on focus
-        .removeAttr('aria-selected').removeClass('is-selected');
     }
   },
 
@@ -719,40 +716,45 @@ SwapList.prototype = {
    * @param {jQuery[]} list the target element to change after an update
    */
   afterUpdate(list) {
-    setTimeout(() => {
-      if (list) {
-        if (this.selections.placeholder) {
-          list.select(this.selections.placeholder);
-          this.selections.placeholder.focus();
-        }
-        this.unselectElements(list);
-        this.syncDataset(this.selections.owner, this.selections.droptarget);
-        this.updateAttributes($('.listview', this.selections.owner));
-        this.updateAttributes($('.listview', this.selections.droptarget));
-        if (this.selections.items.length) {
-          this.selections.move = $.extend(true, this.selections.move, {
-            to: this.getContainer(this.selections.itemsData)
-          });
-          /**
-          * Fires when any bucket has its content changed.
-          * @event swapupdate
-          * @memberof SwapList
-          * @type {object}
-          * @property {object} event - The jquery event object
-          * @property {array} items - List of items data
-          */
-          this.element.triggerHandler('swapupdate', [this.selections.move]);
-        }
+    const focusIdx = this.selections.droptarget.find('li:focus').index();
+    const focusClass = `.card.${this.selections.droptarget[0].classList[1]} li`;
+
+    if (list) {
+      if (this.selections.placeholder) {
+        list.select(this.selections.placeholder);
+        this.selections.placeholder.focus();
       }
+      this.unselectElements(list);
+      this.syncDataset(this.selections.owner, this.selections.droptarget);
+      this.updateAttributes($('.listview', this.selections.owner));
+      this.updateAttributes($('.listview', this.selections.droptarget));
+      if (this.selections.items.length) {
+        this.selections.move = $.extend(true, this.selections.move, {
+          to: this.getContainer(this.selections.itemsData)
+        });
+        /**
+        * Fires when any bucket has its content changed.
+        * @event swapupdate
+        * @memberof SwapList
+        * @type {object}
+        * @property {object} event - The jquery event object
+        * @property {array} items - List of items data
+        */
+        this.element.triggerHandler('swapupdate', [this.selections.move]);
+      }
+    }
 
-      this.selections.items.forEach((elem) => {
-        elem.show();
-      });
+    this.selections.items.forEach((elem) => {
+      elem.show();
+    });
 
-      this.clearDropeffects();
-      this.clearSelections();
-      this.items.removeClass('is-dragging is-dragging-touch');
-    }, 400);
+    this.clearDropeffects();
+    this.clearSelections();
+    this.items.removeClass('is-dragging is-dragging-touch');
+
+    if (focusIdx >= 0) {
+      this.element.find(focusClass).eq(focusIdx).focus();
+    }
   },
 
   /**
