@@ -150,7 +150,7 @@ SwapList.prototype = {
 
         // Generate unique id
         options.dataset.forEach((node) => {
-          if (!(/string|number/.test(typeof node.id))) {
+          if (!(/string|number/.test(typeof node.id)) || node.id === '') {
             node.id = `sw${Math.round((Math.random() * 36 ** 12)).toString(36)}`;
           }
         });
