@@ -148,6 +148,13 @@ SwapList.prototype = {
         options.template = s.template;
         options.dataset = c.dataset || [];
 
+        // Generate unique id
+        options.dataset.forEach((node) => {
+          if (!(/string|number/.test(typeof node.id))) {
+            node.id = `sw${Math.round((Math.random() * 36 ** 12)).toString(36)}`;
+          }
+        });
+
         if (options.dataset.length === 0) {
           options.forceToRenderOnEmptyDs = true;
         }

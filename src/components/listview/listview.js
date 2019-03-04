@@ -1154,6 +1154,24 @@ ListView.prototype = {
   },
 
   /**
+   * Handle to update the search data
+   * @private
+   * @returns {void}
+   */
+  updateSearch() {
+    if (this.settings.searchable && this.filteredDataset) {
+      delete this.filteredDataset;
+      if (this.searchTerm) {
+        delete this.searchTerm;
+      }
+      const searchfieldApi = this.searchfield.data('searchfield');
+      if (searchfieldApi && searchfieldApi.xButton) {
+        searchfieldApi.xButton.trigger('click');
+      }
+    }
+  },
+
+  /**
    * Refresh the list with any optioned options that might have been set.
    * @param {object} [settings] incoming settings
    * @returns {object} component instance
@@ -1161,7 +1179,11 @@ ListView.prototype = {
   updated(settings) {
     if (settings) {
       this.settings = utils.mergeSettings(this.element, settings, this.settings);
-      this.refresh(settings.dataset ? settings.dataset : null);
+      if (settings && settings.dataset) {
+        this.settings.dataset = settings.dataset;
+      }
+      this.updateSearch();
+      this.refresh(settings.dataset || null);
     }
     return this;
   },
