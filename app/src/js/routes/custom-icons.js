@@ -11,7 +11,7 @@ hbsRegistrar('toUpperCase', str => {
 
 
 const pageMap = {
-  'example-index'   : 'standard',
+  'example-index.html?theme=uplift-alpha'   : 'standard',
   'example-extended': 'extended',
   'example-empty-widgets' : 'empty'
 }
@@ -46,7 +46,7 @@ const template = handlebars.compile(hbsTemplate);
 module.exports = url => {
   const fileName = path.basename(url, '.html');
   const iconSet  = pageMap[fileName];
-  const meta = JSON.parse(fs.readFileSync(`node_modules/ids-identity/dist/theme-soho/icons/${iconSet}/metadata.json`, 'utf-8').toString());
+  const meta = JSON.parse(fs.readFileSync(`node_modules/ids-identity/dist/theme-uplift/icons/${iconSet}/metadata.json`, 'utf-8').toString());
 
   if (iconSet === 'empty') {
     meta.additionalClass = 'icon-empty-state';

@@ -16,7 +16,7 @@ let IS_VERBOSE = false;
 
 const ICON_SETS = [
   {
-    src: `${ROOT_DIR}/node_modules/ids-identity/dist/theme-soho/icons/standard/svg/*.svg`,
+    src: `${ROOT_DIR}/node_modules/ids-identity/dist/theme-uplift/icons/standard/svg/*.svg`,
     dest: `${ROOT_DIR}/src/components/icons/svg.html`,
     class: 'svg-icons'
   },
