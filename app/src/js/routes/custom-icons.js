@@ -12,7 +12,7 @@ hbsRegistrar('toUpperCase', str => {
 
 const pageMap = {
   'example-index.html?theme=uplift-alpha'   : 'standard',
-  'example-extended': 'extended',
+  'example-extended.html?theme=uplift-alpha': 'extended',
   'example-empty-widgets' : 'empty'
 }
 

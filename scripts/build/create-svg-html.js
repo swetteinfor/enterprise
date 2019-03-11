@@ -21,7 +21,7 @@ const ICON_SETS = [
     class: 'svg-icons'
   },
   {
-    src: `${ROOT_DIR}/node_modules/ids-identity/dist/theme-soho/icons/extended/svg/*.svg`,
+    src: `${ROOT_DIR}/node_modules/ids-identity/dist/theme-uplift/icons/extended/svg/*.svg`,
     dest: `${ROOT_DIR}/src/components/icons/svg-extended.html`,
     class: 'svg-icons-extended'
   },
