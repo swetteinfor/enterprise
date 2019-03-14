@@ -19,10 +19,10 @@
 
 // Temporary Banner - Remove this when not alpha.
 body::before {
-  background: $theme-color-status-warning;
+  background: $theme-color-status-base;
   bottom: 12px;
   color: $theme-color-palette-white;
-  content: 'alpha';
+  content: 'beta';
   font-size: 13px;
   font-weight: 900;
   height: 25px;
