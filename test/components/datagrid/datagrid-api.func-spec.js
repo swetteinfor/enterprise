@@ -199,7 +199,7 @@ describe('Datagrid API', () => {
     }, 500);
   });
 
-  it('Should be able to show tooltip on header text cut off with ellipsis', (done) => {
+  xit('Should be able to show tooltip on header text cut off with ellipsis', (done) => {
     datagridObj.destroy();
     const newColumns = columns.concat();
     newColumns[6].width = 100;
