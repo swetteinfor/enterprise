@@ -198,7 +198,7 @@ describe('Listview example-multiselect tests', () => {
 describe('Listview example-mixed selection tests', () => {
   beforeEach(async () => {
     await utils.setPage('/components/listview/example-mixed-selection');
-    const listviewEl = await element(by.id('task-listview'));
+    const listviewEl = await element(by.css('.listview li'));
     await browser.driver
       .wait(protractor.ExpectedConditions.presenceOf(listviewEl), config.waitsFor);
   });
