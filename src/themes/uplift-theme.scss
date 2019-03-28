@@ -41,4 +41,117 @@ body::before {
 // TODO: Move to tokens
 .icon {
   fill: transparent;
+  height: 21px;
+}
+
+.accordion.panel.inverse {
+  background-color: $theme-color-palette-slate-100;
+}
+
+.header h1 {
+  font-size: $theme-size-font-md;
+}
+
+.lookup-wrapper .trigger .icon {
+  right: -6px;
+}
+
+[class^='btn'] > .icon,
+.datepicker + .icon,
+.datepicker + .tooltip-description + .icon,
+.lookup-wrapper .trigger .icon {
+  height: 21px;
+  width: 21px;
+}
+
+.card,
+.widget {
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-form .label {
+  font-size: $theme-size-font-xs;
+  font-weight: $theme-number-font-weight-bold;
+}
+
+.summary-form .data {
+  // font-size: $theme-size-font-md;
+  font-weight: $theme-number-font-weight-bold;
+  line-height: $theme-number-font-line-height-md;
+}
+
+.datagrid-container.is-gridlist th,
+.datagrid-container.is-gridlist th.is-active {
+  background-color: white;
+}
+
+.datagrid-container.is-gridlist th .datagrid-header-text {
+    color: black;
+}
+
+.datagrid-container.short-rowheight th.text-ellipsis .datagrid-column-wrapper .datagrid-header-text {
+  margin-top: 2px;
+}
+
+.header .page-title {
+  margin-top: -6px;
+}
+
+.datagrid-container.short-rowheight th .datagrid-checkbox-wrapper {
+  top: 3px;
+}
+
+.sidebar .listview,
+.two-column > .sidebar .listview {
+  background-color: white;
+}
+
+.listview li {
+  border-bottom-color: #E9E9EC;
+}
+
+
+label, .label {
+  font-weight: bold;
+}
+
+lm-columns-undistributed p.lm-text-data, lm-columns-undistributed p.lm-form-text, lm-columns-distributed p.lm-text-data, lm-columns-distributed p.lm-form-text {
+  font-size: 22px;
+}
+
+.widget-title h2 {
+  font-size: 2.2rem;
+  font-weight: normal;
+}
+
+.card-header, .widget-header {
+  border-bottom: none;
+  padding: 13px 16px;
+}
+
+.fieldset-title,
+.section-title {
+  font-size: 2.2rem !important;
+  font-weight: bold;
+}
+
+.toolbar .title {
+  font-size: 2.2rem;
+}
+
+.datagrid-header .is-filterable .datagrid-filter-wrapper {
+  top: -2px;
+}
+
+lm-columns-image-first-column lm-paragraph .compound-field > .field:not(lm-button), lm-columns-image-first-column .compound-field > .field, lm-columns-image-first-column p.lm-text-data, lm-columns-image-first-column p.lm-form-text {
+  font-size: 2.2rem !important;
+}
+
+.datagrid-header .datagrid-header-groups th {
+    background-color: #6D6873;
+}
+
+lm-card-field h3 span {
+  font-weight: bold;
 }
